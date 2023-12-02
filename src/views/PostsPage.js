@@ -41,6 +41,8 @@ const PostsPage = () => {
         })
       );
 
+      
+
       setPosts(postsWithComments);
     };
 
@@ -62,6 +64,42 @@ const PostsPage = () => {
     }
     return <div className="pagination">{pages}</div>;
   };
+
+  const handleLike = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }  
+    } catch (error) {
+      console.error("Error liking post: ", error);
+    }
+  };
+
+  const handleDislike = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/dislike`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }  
+    } catch (error) {
+      console.error("Error disliking post: ", error);
+    }
+  };
+  
+  
 
   if (isLoading)
     return (
@@ -91,6 +129,18 @@ const PostsPage = () => {
                 Posted on: {post.datePosted} by {post.user.username}
               </small>
             </p>
+            <button
+          onClick={() => handleLike(post.id)}
+          className="btn btn-outline-primary btn-sm"
+        >
+          👍 Like
+        </button>
+        <button
+          onClick={() => handleDislike(post.id)}
+          className="btn btn-outline-danger btn-sm"
+        >
+          👎 Dislike
+        </button>
             <div className="mt-3">
               <h6>Comments:</h6>
               <ul className="list-group list-group-flush">
