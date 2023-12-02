@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "../assets/css/navbar.css";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg custom-navbar sticky-top">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand text-white custom-brand" to="/">
           Code Chronicles
         </NavLink>
         <button
@@ -19,20 +20,19 @@ const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+        <div className="collapse navbar-collapse custom-nav" id="navbarNav">
+          <ul className="navbar-nav ">
             <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/posts">
+              <NavLink
+                className="nav-link text-white"
+                aria-current="page"
+                to="/posts"
+              >
                 Posts
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/comments">
-                Comments
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/users">
+              <NavLink className="nav-link text-white" to="/users">
                 Users
               </NavLink>
             </li>

@@ -10,9 +10,7 @@ function App() {
             <NavBar />
             <div className="container mt-4">
                 <Routes>
-                    {/* <Route path="/" element={<HomePage />} /> */}
                     <Route path="/posts" element={<PostsPage />} />
-                    {/* Define other routes */}
                 </Routes>
             </div>
         </Router>
