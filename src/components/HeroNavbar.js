@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "../assets/css/navbar.css";
 
-const NavBar = () => {
+const HeroNavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg custom-navbar sticky-top">
       <div className="container-fluid">
@@ -21,19 +21,14 @@ const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse custom-nav" id="navbarNav">
-          <ul className="navbar-nav ">    
+          <ul className="navbar-nav ">
             <li className="nav-item">
               <NavLink
                 className="nav-link text-white"
                 aria-current="page"
-                to="/posts"
+                to="/about"
               >
-                Posts
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-white" to="/users">
-                Users
+                About us
               </NavLink>
             </li>
             {/* Add more navigation items here */}
@@ -44,4 +39,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default HeroNavBar;

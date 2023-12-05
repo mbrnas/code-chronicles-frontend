@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from '../src/components/Navbar';
 import PostsPage from './views/PostsPage';
-// import other pages
+import Signup from './views/Signup';
+import Login from './views/Login';
 
 function App() {
     return (
@@ -10,7 +11,9 @@ function App() {
             <NavBar />
             <div className="container mt-4">
                 <Routes>
-                    <Route path="/posts" element={<PostsPage />} />
+                    <Route path='/login' element={<Login/>}/>
+                    <Route path='/signup' element={<Signup/>}/>
+                    <Route path="/posts" element={<PostsPage />} />    
                 </Routes>
             </div>
         </Router>
