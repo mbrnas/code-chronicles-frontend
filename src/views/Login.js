@@ -32,7 +32,9 @@ function Login() {
   return (
     <div className="container mt-5 login-form-container">
       <form onSubmit={handleSubmit}>
-        <h2 style={{ color: "#7B66FF", textAlign: "center", padding: "20px"}}>Login</h2>
+        <h2 style={{ color: "#7B66FF", textAlign: "center", padding: "20px" }}>
+          Login
+        </h2>
         <div className="mb-3" style={{ maxWidth: "300px", margin: "auto" }}>
           <input
             type="text"
@@ -53,6 +55,11 @@ function Login() {
             onChange={handleChange}
           />
         </div>
+        <div className="text-center mt-3">
+          <p>
+            Don't have an account? <Link to="/signup">Create one!</Link>
+          </p>
+        </div>
         <button
           type="submit"
           className="btn d-block mx-auto"
@@ -61,11 +68,6 @@ function Login() {
           Login
         </button>
       </form>
-      <div className="text-center mt-3">
-        <p>
-          Don't have an account? <Link to="/signup">Create one!</Link>
-        </p>
-      </div>
     </div>
   );
 }

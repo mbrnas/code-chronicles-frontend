@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/post.css";
+import axios from "axios";
 
 const PostsPage = () => {
   const [posts, setPosts] = useState([]);
@@ -11,15 +12,11 @@ const PostsPage = () => {
   useEffect(() => {
     const fetchPosts = async (pageNumber) => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `http://localhost:8080/api/v1/posts/all-posts?pageNumber=${pageNumber}&pageSize=3`
         );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        await fetchCommentsForPosts(data.content);
-        setTotalPages(data.totalPages);
+        await fetchCommentsForPosts(response.data.content);
+        setTotalPages(response.data.totalPages);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -30,18 +27,16 @@ const PostsPage = () => {
     const fetchCommentsForPosts = async (posts) => {
       const postsWithComments = await Promise.all(
         posts.map(async (post) => {
-          const commentsResponse = await fetch(
-            `http://localhost:8080/api/v1/comments/${post.id}`
-          );
-          if (!commentsResponse.ok) {
-            throw new Error(`HTTP error! status: ${commentsResponse.status}`);
+          try {
+            const commentsResponse = await axios.get(
+              `http://localhost:8080/api/v1/comments/${post.id}`
+            );
+            return { ...post, comments: commentsResponse.data.content };
+          } catch (error) {
+            throw new Error(error.message);
           }
-          const commentsData = await commentsResponse.json();
-          return { ...post, comments: commentsData.content };
         })
       );
-
-      
 
       setPosts(postsWithComments);
     };
@@ -67,16 +62,8 @@ const PostsPage = () => {
 
   const handleLike = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/like`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }  
+      await axios.post(`http://localhost:8080/api/v1/posts/${postId}/like`, {});
+      // Handle success
     } catch (error) {
       console.error("Error liking post: ", error);
     }
@@ -84,22 +71,15 @@ const PostsPage = () => {
 
   const handleDislike = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/dislike`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }  
+      await axios.post(
+        `http://localhost:8080/api/v1/posts/${postId}/dislike`,
+        {}
+      );
+      // Handle success
     } catch (error) {
       console.error("Error disliking post: ", error);
     }
   };
-  
-  
 
   if (isLoading)
     return (
@@ -130,17 +110,17 @@ const PostsPage = () => {
               </small>
             </p>
             <button
-          onClick={() => handleLike(post.id)}
-          className="btn btn-outline-primary btn-sm"
-        >
-          👍 Like
-        </button>
-        <button
-          onClick={() => handleDislike(post.id)}
-          className="btn btn-outline-danger btn-sm"
-        >
-          👎 Dislike
-        </button>
+              onClick={() => handleLike(post.id)}
+              className="btn btn-outline-primary btn-sm"
+            >
+              👍 Like
+            </button>
+            <button
+              onClick={() => handleDislike(post.id)}
+              className="btn btn-outline-danger btn-sm"
+            >
+              👎 Dislike
+            </button>
             <div className="mt-3">
               <h6>Comments:</h6>
               <ul className="list-group list-group-flush">

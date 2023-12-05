@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { Link } from "react-router-dom";
+import "../assets/css/signup.css";
 function Signup() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -31,9 +32,9 @@ function Signup() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 signup-form-container">
       <form onSubmit={handleSubmit}>
-        <h2 style={{ color: "#7B66FF" }}>Sign Up</h2>
+        <h2 style={{ color: "#7B66FF", textAlign: "center" }}>Sign Up</h2>
         <div className="mb-3" style={{ maxWidth: "300px", margin: "auto" }}>
           <input
             type="text"
@@ -83,6 +84,11 @@ function Signup() {
             value={formData.password}
             onChange={handleChange}
           />
+        </div>
+        <div className="text-center mt-3">
+          <p>
+            Already have an account? <Link to="/login">Log in!</Link>
+          </p>
         </div>
         <button
           type="submit"
