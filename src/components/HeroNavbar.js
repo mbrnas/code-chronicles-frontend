@@ -31,7 +31,6 @@ const HeroNavBar = () => {
                 About us
               </NavLink>
             </li>
-            {/* Add more navigation items here */}
           </ul>
         </div>
       </div>

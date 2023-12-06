@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "../src/components/Navbar";
 import PostsPage from "./views/PostsPage";
@@ -7,6 +7,9 @@ import Login from "./views/Login";
 import Hero from "./views/Hero";
 
 function App() {
+  useEffect(() => {
+    document.title = "Code Chronicles";
+  }, []);
   return (
     <Router>
       <NavBar />

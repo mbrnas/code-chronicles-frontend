@@ -22,10 +22,10 @@ function Login() {
         formData
       );
       console.log(response.data);
-      // Handle success (e.g., redirect, display message)
+      // Handle success 
     } catch (error) {
       console.error(error);
-      // Handle error (e.g., display error message)
+      // Handle error 
     }
   };
 
@@ -57,9 +57,16 @@ function Login() {
         </div>
         <div className="text-center mt-3">
           <p>
-            Don't have an account? <Link to="/signup">Create one!</Link>
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              style={{ color: "#7B66FF", textDecoration: "none" }}
+            >
+              Create one!
+            </Link>
           </p>
         </div>
+
         <button
           type="submit"
           className="btn d-block mx-auto"

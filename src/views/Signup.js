@@ -3,6 +3,9 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import "../assets/css/signup.css";
+import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 function Signup() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -11,6 +14,9 @@ function Signup() {
     username: "",
     password: "",
   });
+
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,17 +30,23 @@ function Signup() {
         formData
       );
       console.log(response.data);
-      // Handle success (e.g., redirect, display message)
+      setShowModal(true);
     } catch (error) {
       console.error(error);
-      // Handle error (e.g., display error message)
+      // Handle error 
     }
+  };
+
+  const handleContinue = () => {
+    navigate("/posts");
   };
 
   return (
     <div className="container mt-5 signup-form-container">
       <form onSubmit={handleSubmit}>
-        <h2 style={{ color: "#7B66FF", textAlign: "center" }}>Sign Up</h2>
+        <h2 style={{ color: "#7B66FF", textAlign: "center", padding: "30px" }}>
+          Sign Up
+        </h2>
         <div className="mb-3" style={{ maxWidth: "300px", margin: "auto" }}>
           <input
             type="text"
@@ -43,6 +55,7 @@ function Signup() {
             placeholder="First Name"
             value={formData.firstName}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="mb-3" style={{ maxWidth: "300px", margin: "auto" }}>
@@ -53,6 +66,7 @@ function Signup() {
             placeholder="Last Name"
             value={formData.lastName}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="mb-3" style={{ maxWidth: "300px", margin: "auto" }}>
@@ -63,6 +77,7 @@ function Signup() {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="mb-3" style={{ maxWidth: "300px", margin: "auto" }}>
@@ -73,6 +88,7 @@ function Signup() {
             placeholder="Username"
             value={formData.username}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="mb-3" style={{ maxWidth: "300px", margin: "auto" }}>
@@ -83,11 +99,18 @@ function Signup() {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="text-center mt-3">
           <p>
-            Already have an account? <Link to="/login">Log in!</Link>
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              style={{ color: "#7B66FF", textDecoration: "none" }}
+            >
+              Log in!
+            </Link>
           </p>
         </div>
         <button
@@ -98,6 +121,30 @@ function Signup() {
           Sign Up
         </button>
       </form>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header>
+          <Modal.Title style={{ color: "#7B66FF" }}>
+            Welcome to CodeChronicles!
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Your account has been successfully created. Get ready to dive into the
+          world of CodeChronicles!
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn"
+            style={{
+              backgroundColor: "#7B66FF",
+              color: "white",
+              textAlign: "center",
+            }}
+            onClick={handleContinue}
+          >
+            Continue
+          </button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
